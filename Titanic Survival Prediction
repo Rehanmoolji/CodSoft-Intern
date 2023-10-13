@@ -52,4 +52,3 @@ class_report = classification_report(y_test, y_pred)
 print(f'Accuracy: {accuracy}')
 print(f'Confusion Matrix:\n{conf_matrix}')
 print(f'Classification Report:\n{class_report}')
-
