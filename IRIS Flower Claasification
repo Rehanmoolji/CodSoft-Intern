@@ -1,0 +1,41 @@
+# -*- coding: utf-8 -*-
+
+# Import necessary libraries
+import numpy as np
+import pandas as pd
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, classification_report
+
+# Load the Iris dataset
+iris = datasets.load_iris()
+X = iris.data  # Features (sepal length, sepal width, petal length, petal width)
+y = iris.target  # Target variable (species: 0 for setosa, 1 for versicolor, 2 for virginica)
+
+# Dividing dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Standardize the features (optional, but often beneficial)
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Initialize and train a classifier (K-nearest neighbors in this example)
+k = 3  # You can adjust the number of neighbors
+clf = KNeighborsClassifier(n_neighbors=k)
+clf.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = clf.predict(X_test)
+
+print(y_test)
+print(y_pred)
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+report = classification_report(y_test, y_pred, target_names=iris.target_names)
+
+# Print the results
+print(f"Accuracy: {accuracy}")
+print("Classification Report:\n", report)
